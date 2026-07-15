@@ -210,9 +210,7 @@ FROM runner-base AS runner-cli
 USER root
 
 # Install system dependencies required by openclaw (git+ssh references).
-RUN --mount=type=cache,id=apt-cache,target=/var/cache/apt,sharing=locked \
-  --mount=type=cache,id=apt-lists,target=/var/lib/apt/lists,sharing=locked \
-  apt-get update \
+RUN apt-get update \
   && apt-get install -y --no-install-recommends git ca-certificates docker.io docker-compose \
   && rm -rf /var/lib/apt/lists/* \
   && git config --system url."https://github.com/".insteadOf "ssh://git@github.com/"
